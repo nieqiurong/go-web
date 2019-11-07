@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"go-web/entity"
 	"go-web/routers"
 	"go-web/setting"
 	"log"
@@ -11,6 +12,7 @@ import (
 
 func init() {
 	setting.InitConfig()
+	entity.InitDb()
 }
 
 func main() {
