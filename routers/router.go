@@ -1,10 +1,15 @@
 package routers
 
 import (
+	"database/sql"
+	"database/sql/driver"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	"go-web/routers/api"
+	"gopkg.in/go-playground/validator.v8"
 	"net/http"
+	"reflect"
 	"strings"
 )
 
@@ -18,6 +23,17 @@ func InitRouter() *gin.Engine {
 	{
 		user.POST("/save", api.Insert)
 		user.POST("/delete", api.Delete)
+	}
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
+			if valuer, ok := field.Interface().(driver.Valuer); ok {
+				val, err := valuer.Value()
+				if err == nil {
+					return val
+				}
+			}
+			return nil
+		}, sql.NullString{}, sql.NullInt64{}, sql.NullBool{}, sql.NullFloat64{})
 	}
 	return r
 }
