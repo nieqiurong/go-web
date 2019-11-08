@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-web/entity"
 	"go-web/routers"
+	"go-web/schedule"
 	"go-web/setting"
 	"log"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 func init() {
 	setting.InitConfig()
 	entity.InitDb()
+	schedule.InitSchedule()
 }
 
 func main() {
