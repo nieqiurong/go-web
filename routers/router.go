@@ -14,6 +14,11 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	r.Use(Cors())
 	r.GET("/ping", api.Ping)
+	user := r.Group("/user")
+	{
+		user.POST("/save", api.Insert)
+		user.POST("/delete", api.Delete)
+	}
 	return r
 }
 
