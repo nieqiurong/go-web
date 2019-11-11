@@ -49,3 +49,30 @@ func Delete(ctx *gin.Context) {
 		Msg:  "删除成功",
 	})
 }
+
+func SelectPage(ctx *gin.Context) {
+	var page model.Page
+	err := ctx.ShouldBind(&page)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	students, err := entity.Page(page)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, model.Response{
+		BaseResponse: model.BaseResponse{
+			Code: http.StatusOK,
+			Msg:  "查询成功",
+		},
+		Data: students,
+	})
+}

@@ -23,6 +23,7 @@ func InitRouter() *gin.Engine {
 	{
 		user.POST("/save", api.Insert)
 		user.POST("/delete", api.Delete)
+		user.GET("/page", api.SelectPage)
 	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
