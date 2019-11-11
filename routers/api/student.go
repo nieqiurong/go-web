@@ -22,7 +22,14 @@ func Insert(ctx *gin.Context) {
 		})
 		return
 	}
-	entity.Save(student.Name, student.Sex)
+	_, err = entity.Save(student.Name, student.Sex)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
 	ctx.JSON(http.StatusOK, model.BaseResponse{
 		Code: http.StatusOK,
 		Msg:  "保存成功",
@@ -43,10 +50,46 @@ func Delete(ctx *gin.Context) {
 		})
 		return
 	}
-	entity.Delete(student.Id)
+	_, err = entity.Delete(student.Id)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
 	ctx.JSON(http.StatusOK, model.BaseResponse{
 		Code: http.StatusOK,
 		Msg:  "删除成功",
+	})
+}
+
+type UpdateStudent struct {
+	Name string `json:"name" binding:"required"`
+	Id   int    `json:"id" binding:"required"`
+}
+
+func Update(ctx *gin.Context) {
+	var student UpdateStudent
+	err := ctx.ShouldBindJSON(&student)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	_, err = entity.Update(student.Name, student.Id)
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.BaseResponse{
+			Code: http.StatusBadRequest,
+			Msg:  err.Error(),
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, model.BaseResponse{
+		Code: http.StatusOK,
+		Msg:  "更新成功",
 	})
 }
 
