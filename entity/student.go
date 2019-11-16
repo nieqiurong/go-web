@@ -15,7 +15,7 @@ func Save(name string, sex int) (b bool, err error) {
 	student := Student{Name: name, Sex: sex}
 	e := db.Create(&student).Error
 	if e != nil {
-		log.Println("save user fail ", e)
+		log.Println("save student fail ", e)
 		return false, e
 	}
 	return true, nil

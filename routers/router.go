@@ -19,12 +19,12 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	r.Use(Cors())
 	r.GET("/ping", api.Ping)
-	user := r.Group("/user")
+	student := r.Group("/student")
 	{
-		user.POST("/save", api.Insert)
-		user.POST("/delete", api.Delete)
-		user.POST("/update", api.Update)
-		user.GET("/page", api.SelectPage)
+		student.POST("/save", api.Insert)
+		student.POST("/delete", api.Delete)
+		student.POST("/update", api.Update)
+		student.GET("/page", api.SelectPage)
 	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {

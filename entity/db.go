@@ -12,12 +12,14 @@ var db *gorm.DB
 
 func InitDb() {
 	//username:password@protocol(address)/dbname?param=value
-	user := setting.Application.Db.UserName
-	pwd := setting.Application.Db.PassWord
-	host := setting.Application.Db.Host
-	dbName := setting.Application.Db.DbName
+	dbConfig := setting.Application.Db
+	user := dbConfig.UserName
+	pwd := dbConfig.PassWord
+	host := dbConfig.Host
+	port := dbConfig.Port
+	dbName := dbConfig.DbName
 	var err error
-	db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", user, pwd, host, dbName))
+	db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", user, pwd, host, port, dbName))
 	if err != nil {
 		log.Fatal("connect database fail !", err)
 	}
