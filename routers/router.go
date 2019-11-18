@@ -26,6 +26,10 @@ func InitRouter() *gin.Engine {
 		student.POST("/update", api.Update)
 		student.GET("/page", api.SelectPage)
 	}
+	biz := r.Group("/biz")
+	{
+		biz.POST("/user", api.SaveUser)
+	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {
 			if valuer, ok := field.Interface().(driver.Valuer); ok {
