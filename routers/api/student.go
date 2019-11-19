@@ -22,7 +22,7 @@ func Insert(ctx *gin.Context) {
 		})
 		return
 	}
-	_, err = entity.Save(student.Name, student.Sex)
+	err = entity.Save(student.Name, student.Sex)
 	if err != nil {
 		ctx.JSON(http.StatusOK, model.BaseResponse{
 			Code: http.StatusBadRequest,
@@ -50,7 +50,7 @@ func Delete(ctx *gin.Context) {
 		})
 		return
 	}
-	_, err = entity.Delete(student.Id)
+	err = entity.Delete(student.Id)
 	if err != nil {
 		ctx.JSON(http.StatusOK, model.BaseResponse{
 			Code: http.StatusBadRequest,
@@ -79,7 +79,7 @@ func Update(ctx *gin.Context) {
 		})
 		return
 	}
-	_, err = entity.Update(student.Name, student.Id)
+	err = entity.Update(student.Name, student.Id)
 	if err != nil {
 		ctx.JSON(http.StatusOK, model.BaseResponse{
 			Code: http.StatusBadRequest,

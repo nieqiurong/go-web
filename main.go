@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/DeanThompson/ginpprof"
 	"github.com/gin-gonic/gin"
 	"go-web/entity"
 	"go-web/routers"
@@ -26,7 +25,6 @@ func main() {
 		Addr:    endPoint,
 		Handler: routersInit,
 	}
-	ginpprof.Wrap(routersInit)
 	log.Printf("start http server listening %s", endPoint)
 	_ = server.ListenAndServe()
 }

@@ -23,7 +23,7 @@ func (User) TableName() string {
 	return "biz_user"
 }
 
-func SaveUser(CmbUid string, WxName string) (b bool, err error) {
+func SaveUser(CmbUid string, WxName string) (err error) {
 	var user = User{}
 	err = db.Where("cmb_uid = ?", CmbUid).Find(&user).Error
 	if err != nil {
@@ -32,17 +32,17 @@ func SaveUser(CmbUid string, WxName string) (b bool, err error) {
 			e := db.Create(&user).Error
 			if e != nil {
 				log.Println("save user fail ", e)
-				return false, e
+				return e
 			}
-			return true, nil
+			return nil
 		}
-		return false, err
+		return err
 	}
 	user = User{Id: user.Id, LoginTime: time.Now()}
 	err = db.Model(&user).Update(User{Id: user.Id, LoginTime: time.Now()}).Error
 	if err != nil {
 		log.Println("update user fail ", err)
-		return false, err
+		return err
 	}
-	return true, nil
+	return nil
 }

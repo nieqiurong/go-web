@@ -11,23 +11,23 @@ type Student struct {
 	Sex  int    `json:"sex"`
 }
 
-func Save(name string, sex int) (b bool, err error) {
+func Save(name string, sex int) (err error) {
 	student := Student{Name: name, Sex: sex}
 	e := db.Create(&student).Error
 	if e != nil {
 		log.Println("save student fail ", e)
-		return false, e
+		return e
 	}
-	return true, nil
+	return nil
 }
 
-func Delete(id int) (b bool, err error) {
+func Delete(id int) (err error) {
 	e := db.Where("id = ?", id).Delete(&Student{}).Error
 	if e != nil {
 		log.Println("delete student fail ", e)
-		return false, e
+		return e
 	}
-	return true, nil
+	return nil
 }
 
 func Page(page model.Page) (student []*Student, err error) {
@@ -40,12 +40,12 @@ func Page(page model.Page) (student []*Student, err error) {
 	return students, nil
 }
 
-func Update(name string, id int) (b bool, err error) {
+func Update(name string, id int) (err error) {
 	student := Student{Name: name, Id: id}
 	e := db.Model(&student).Update(&student).Error
 	if e != nil {
 		log.Println("update student fail ", e)
-		return false, e
+		return e
 	}
-	return true, nil
+	return nil
 }

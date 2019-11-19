@@ -22,7 +22,7 @@ func SaveUser(ctx *gin.Context) {
 		})
 		return
 	}
-	_, err = entity.SaveUser(user.CmbUid, user.WxName)
+	err = entity.SaveUser(user.CmbUid, user.WxName)
 	if err != nil {
 		ctx.JSON(http.StatusOK, model.BaseResponse{
 			Code: http.StatusBadRequest,
