@@ -20,7 +20,7 @@ func InitDb() {
 	port := dbConfig.Port
 	dbName := dbConfig.DbName
 	var err error
-	db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8", user, pwd, host, port, dbName))
+	db, err = gorm.Open("mysql", fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=true", user, pwd, host, port, dbName))
 	if err != nil {
 		log.Fatal("connect database fail !", err)
 	}
