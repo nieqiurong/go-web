@@ -15,8 +15,8 @@ import (
 
 func InitRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	//r.Use(gin.Logger())
+	//r.Use(gin.Recovery())
 	r.Use(Cors())
 	r.GET("/ping", api.Ping)
 	student := r.Group("/student")

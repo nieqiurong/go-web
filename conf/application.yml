@@ -1,6 +1,6 @@
 server:
   port: 8080
-  mode: debug
+  mode: release
 datasource:
   username: root
   password: 123456
@@ -10,3 +10,8 @@ datasource:
   maxIdle: 5
   maxOpen: 20
   maxLifetime: 5m
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  db: 0
