@@ -28,9 +28,11 @@ func InitDb() {
 	if err != nil {
 		log.Fatal("parseDuration fail !", err)
 	}
+	db.LogMode(true)
 	db.DB().SetConnMaxLifetime(duration)
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdle)
 	db.DB().SetMaxOpenConns(dbConfig.MaxOpen)
 	//auto create table
 	db.AutoMigrate(&Student{})
+	db.AutoMigrate(&User{})
 }

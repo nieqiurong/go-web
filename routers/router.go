@@ -15,8 +15,8 @@ import (
 
 func InitRouter() *gin.Engine {
 	r := gin.New()
-	//r.Use(gin.Logger())
-	//r.Use(gin.Recovery())
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
 	r.Use(Cors())
 	r.GET("/ping", api.Ping)
 	student := r.Group("/student")
@@ -26,10 +26,9 @@ func InitRouter() *gin.Engine {
 		student.POST("/update", api.Update)
 		student.GET("/page", api.SelectPage)
 	}
-	biz := r.Group("/biz")
+	user := r.Group("/")
 	{
-		biz.GET("/test", api.Test)
-		biz.POST("/user", api.SaveUser)
+		user.POST("/login", api.Login)
 	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterCustomTypeFunc(func(field reflect.Value) interface{} {

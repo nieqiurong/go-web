@@ -12,6 +12,7 @@ type Config struct {
 	Server Server `yaml:"server"`
 	Db     Db     `yaml:"datasource"`
 	Redis  Redis  `yaml:"redis"`
+	Jwt    Jwt    `yaml:"jwt"`
 }
 
 type Server struct {
@@ -35,6 +36,11 @@ type Redis struct {
 	Port     int    `yaml:"port"`
 	Password string `yaml:"password"`
 	Db       int    `yaml:"db"`
+}
+
+type Jwt struct {
+	Key  string `yaml:"key"`
+	Time string `yaml:"time"`
 }
 
 func InitConfig() {
