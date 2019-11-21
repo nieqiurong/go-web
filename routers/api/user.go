@@ -18,33 +18,21 @@ func SaveUser(ctx *gin.Context) {
 	var user AddUser
 	err := ctx.ShouldBind(&user)
 	if err != nil {
-		ctx.JSON(http.StatusOK, model.BaseResponse{
-			Code: http.StatusBadRequest,
-			Msg:  err.Error(),
-		})
+		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
 		return
 	}
 	err = entity.SaveUser(user.CmbUid, user.WxName)
 	if err != nil {
-		ctx.JSON(http.StatusOK, model.BaseResponse{
-			Code: http.StatusBadRequest,
-			Msg:  err.Error(),
-		})
+		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
 		return
 	}
-	ctx.JSON(http.StatusOK, model.BaseResponse{
-		Code: http.StatusOK,
-		Msg:  "操作成功",
-	})
+	ctx.JSON(http.StatusOK, model.Response(http.StatusOK, "操作成功"))
 }
 
 func Test(ctx *gin.Context) {
 	num, err := strconv.Atoi(ctx.DefaultQuery("num", "10000"))
 	if err != nil {
-		ctx.JSON(http.StatusOK, model.BaseResponse{
-			Code: http.StatusBadRequest,
-			Msg:  err.Error(),
-		})
+		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
 		return
 	}
 	for j := 0; j < num; j++ {

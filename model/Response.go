@@ -1,6 +1,16 @@
 package model
 
-type Response struct {
-	BaseResponse
-	Data interface{} `json:"data"`
+func Response(code int, msg string) map[string]interface{} {
+	res := make(map[string]interface{})
+	res["code"] = code
+	res["msg"] = msg
+	return res
+}
+
+func ResponseData(code int, msg string, data interface{}) map[string]interface{} {
+	res := make(map[string]interface{})
+	res["code"] = code
+	res["msg"] = msg
+	res["data"] = data
+	return res
 }
