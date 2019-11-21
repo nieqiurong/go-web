@@ -28,6 +28,7 @@ func InitRouter() *gin.Engine {
 	}
 	biz := r.Group("/biz")
 	{
+		biz.GET("/test", api.Test)
 		biz.POST("/user", api.SaveUser)
 	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
