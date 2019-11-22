@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"go-web/cache"
 	"go-web/entity"
 	"go-web/routers"
@@ -20,7 +19,6 @@ func init() {
 
 func main() {
 	serverConfig := setting.Application.Server
-	gin.SetMode(serverConfig.Mode)
 	routersInit := routers.InitRouter()
 	endPoint := fmt.Sprintf(":%d", serverConfig.Port)
 	server := &http.Server{

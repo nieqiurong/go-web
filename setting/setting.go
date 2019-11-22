@@ -9,7 +9,20 @@ import (
 
 var Application = &Config{}
 
+func (app *Config) IsDebug() bool {
+	return app.App.Mode == "debug"
+}
+
+type App struct {
+	Name   string `yaml:"name" json:"name"`
+	Mode   string `yaml:"mode" json:"mode"`
+	Author string `yaml:"author" json:"author"`
+	Email  string `yaml:"email" json:"email"`
+	QQ     string `yaml:"qq" json:"qq"`
+}
+
 type Config struct {
+	App    App    `yaml:"app"`
 	Server Server `yaml:"server"`
 	Db     Db     `yaml:"datasource"`
 	Redis  Redis  `yaml:"redis"`
@@ -17,8 +30,7 @@ type Config struct {
 }
 
 type Server struct {
-	Port int    `yaml:"port"`
-	Mode string `yaml:"mode"`
+	Port int `yaml:"port"`
 }
 
 type Db struct {

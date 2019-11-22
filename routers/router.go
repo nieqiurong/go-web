@@ -6,16 +6,23 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"go-web/routers/api"
+	"go-web/setting"
 	"gopkg.in/go-playground/validator.v8"
 	"reflect"
 )
 
 func InitRouter() *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(Cors())
+	if setting.Application.IsDebug() {
+		r.Use(gin.Logger())
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	r.GET("/ping", api.Ping)
+	r.GET("/info", api.Info)
 	student := r.Group("/student").Use(Jwt())
 	{
 		student.POST("/save", api.Insert)

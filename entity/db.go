@@ -23,7 +23,7 @@ func InitDb() {
 	if err != nil {
 		log.Fatal("connect database fail !", err)
 	}
-	db.LogMode(true)
+	db.LogMode(setting.Application.IsDebug())
 	db.DB().SetConnMaxLifetime(dbConfig.MaxLifetime)
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdle)
 	db.DB().SetMaxOpenConns(dbConfig.MaxOpen)

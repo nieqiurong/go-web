@@ -1,3 +1,9 @@
+app:
+  name: go-web
+  mode: debug
+  author: 靓仔
+  email: nieqiurong@163.com
+  qq: 996102919
 server:
   port: 8080
   mode: debug
