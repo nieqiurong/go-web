@@ -6,7 +6,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"go-web/setting"
 	"log"
-	"time"
 )
 
 var db *gorm.DB
@@ -24,12 +23,8 @@ func InitDb() {
 	if err != nil {
 		log.Fatal("connect database fail !", err)
 	}
-	duration, err := time.ParseDuration(dbConfig.MaxLifetime)
-	if err != nil {
-		log.Fatal("parseDuration fail !", err)
-	}
 	db.LogMode(true)
-	db.DB().SetConnMaxLifetime(duration)
+	db.DB().SetConnMaxLifetime(dbConfig.MaxLifetime)
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdle)
 	db.DB().SetMaxOpenConns(dbConfig.MaxOpen)
 	//auto create table

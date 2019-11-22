@@ -4,6 +4,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"time"
 )
 
 var Application = &Config{}
@@ -21,14 +22,14 @@ type Server struct {
 }
 
 type Db struct {
-	UserName    string `yaml:"username"`
-	PassWord    string `yaml:"password"`
-	DbName      string `yaml:"dbName"`
-	Host        string `yaml:"host"`
-	Port        string `yaml:"port"`
-	MaxIdle     int    `yaml:"maxIdle"`
-	MaxOpen     int    `yaml:"maxOpen"`
-	MaxLifetime string `yaml:"maxLifetime"`
+	UserName    string        `yaml:"username"`
+	PassWord    string        `yaml:"password"`
+	DbName      string        `yaml:"dbName"`
+	Host        string        `yaml:"host"`
+	Port        string        `yaml:"port"`
+	MaxIdle     int           `yaml:"maxIdle"`
+	MaxOpen     int           `yaml:"maxOpen"`
+	MaxLifetime time.Duration `yaml:"maxLifetime"`
 }
 
 type Redis struct {
@@ -39,8 +40,8 @@ type Redis struct {
 }
 
 type Jwt struct {
-	Key  string `yaml:"key"`
-	Time string `yaml:"time"`
+	Key  string        `yaml:"key"`
+	Time time.Duration `yaml:"time"`
 }
 
 func InitConfig() {
