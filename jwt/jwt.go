@@ -19,3 +19,11 @@ func CreateToken(id int64, account string, cl map[string]interface{}) (token str
 	token, err = t.SignedString([]byte(jwtConfig.Key))
 	return
 }
+
+func ParseToken(tokenString string) (token *jwt.Token, err error) {
+	jwtConfig := setting.Application.Jwt
+	token, err = jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		return []byte(jwtConfig.Key), nil
+	})
+	return
+}
