@@ -18,6 +18,9 @@ func CreateToken(id int64, account string, cl map[string]interface{}) (token str
 	claims["account"] = account
 	claims["id"] = id
 	claims["exp"] = time.Now().Add(duration).Unix()
+	for key, value := range cl {
+		claims[key] = value
+	}
 	token, err = t.SignedString([]byte(jwtConfig.Key))
 	return token, err
 }
