@@ -12,6 +12,8 @@ require (
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.16.0 // indirect
 	github.com/go-redis/redis/v7 v7.0.0-beta.4
+	github.com/go-sql-driver/mysql v1.4.1
+	github.com/go-xorm/xorm v0.7.9
 	github.com/gomodule/redigo v2.0.0+incompatible // indirect
 	github.com/jinzhu/gorm v1.9.11
 	github.com/leodido/go-urn v1.2.0 // indirect

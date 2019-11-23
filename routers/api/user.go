@@ -27,7 +27,7 @@ func Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
 		return
 	}
-	if user == nil {
+	if user.Id <= 0 {
 		log.Printf("用户%s未注册", login.Account)
 		ctx.JSON(http.StatusOK, model.Response(model.RegisterCode, "用户不存在,快去注册吧!"))
 		return

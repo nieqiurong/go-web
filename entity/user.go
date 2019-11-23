@@ -1,19 +1,18 @@
 package entity
 
 import (
-	"github.com/jinzhu/gorm"
 	"time"
 )
 
 type User struct {
-	Id         int64     `gorm:"primary_key;auto_increment"`
-	Account    string    `gorm:"type:varchar(20);not null;unique_index:un_index_account;column:account"`
-	PassWord   string    `gorm:"type:varchar(50);column:password"`
-	Name       string    `gorm:"type:varchar(50);column:name"`
-	QQ         string    `gorm:"type:varchar(50);column:qq"`
-	Email      string    `gorm:"type:varchar(50);column:email"`
-	LoginTime  time.Time `gorm:"type:datetime;column:login_time"`
-	CreateTime time.Time `gorm:"type:datetime;column:create_time"`
+	Id         int64     `xorm:"pk autoincr"`
+	Account    string    `xorm:"varchar(20) not null unique(un_index_account) account"`
+	PassWord   string    `xorm:"varchar(50) not null password"`
+	Name       string    `xorm:"varchar(50) name"`
+	QQ         string    `xorm:"varchar(50) qq"`
+	Email      string    `xorm:"varchar(50) email"`
+	LoginTime  time.Time `xorm:"datetime login_time default CURRENT_TIMESTAMP"`
+	CreateTime time.Time `xorm:"datetime create_time default CURRENT_TIMESTAMP"`
 }
 
 func (User) TableName() string {
@@ -22,9 +21,6 @@ func (User) TableName() string {
 
 func FindUserByAccount(account string) (u *User, err error) {
 	user := &User{}
-	err = db.Where("account = ?", account).Find(&user).Error
-	if err == gorm.ErrRecordNotFound {
-		return nil, nil
-	}
-	return user, nil
+	_, err = db.Where("account = ?", account).Get(user)
+	return user, err
 }

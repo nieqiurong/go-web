@@ -6,14 +6,18 @@ import (
 )
 
 type Student struct {
-	Id   int    `gorm:"primary_key;AUTO_INCREMENT" json:"id"`
-	Name string `json:"name"`
-	Sex  int    `json:"sex"`
+	Id   int    `xorm:"pk autoincr" json:"id"`
+	Name string `xorm:"varchar(50) name" json:"name"`
+	Sex  int    `xorm:"varchar(50) sex" json:"sex"`
+}
+
+func (Student) TableName() string {
+	return "t_student"
 }
 
 func Save(name string, sex int) (err error) {
 	student := Student{Name: name, Sex: sex}
-	e := db.Create(&student).Error
+	_, e := db.Insert(&student)
 	if e != nil {
 		log.Println("save student fail ", e)
 		return e
@@ -22,7 +26,7 @@ func Save(name string, sex int) (err error) {
 }
 
 func Delete(id int) (err error) {
-	e := db.Where("id = ?", id).Delete(&Student{}).Error
+	_, e := db.Where("id = ?", id).Delete(&Student{})
 	if e != nil {
 		log.Println("delete student fail ", e)
 		return e
@@ -32,7 +36,7 @@ func Delete(id int) (err error) {
 
 func Page(page model.Page) (student []*Student, err error) {
 	var students []*Student
-	e := db.Offset(page.GetOffset()).Limit(page.Size).Find(&students).Error
+	e := db.Limit(page.Size, page.GetOffset()).Find(&students)
 	if e != nil {
 		log.Println("select student fail ", e)
 		return nil, e
@@ -42,7 +46,7 @@ func Page(page model.Page) (student []*Student, err error) {
 
 func Update(name string, id int) (err error) {
 	student := Student{Name: name, Id: id}
-	e := db.Model(&student).Update(&student).Error
+	_, e := db.Id(id).Update(&student)
 	if e != nil {
 		log.Println("update student fail ", e)
 		return e

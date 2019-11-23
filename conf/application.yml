@@ -6,7 +6,6 @@ app:
   qq: 996102919
 server:
   port: 8080
-  mode: debug
 datasource:
   username: root
   password: 123456
