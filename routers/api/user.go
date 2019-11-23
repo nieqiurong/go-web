@@ -39,3 +39,14 @@ func Test(ctx *gin.Context) {
 		go entity.SaveUser(uuid.NewV4().String(), "靓仔")
 	}
 }
+
+func Test2(ctx *gin.Context) {
+	num, err := strconv.Atoi(ctx.DefaultQuery("num", "10000"))
+	if err != nil {
+		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
+		return
+	}
+	for j := 0; j < num; j++ {
+		entity.SaveUser(uuid.NewV4().String(), "靓仔")
+	}
+}

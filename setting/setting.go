@@ -11,7 +11,6 @@ var Application = &Config{}
 type Config struct {
 	Server Server `yaml:"server"`
 	Db     Db     `yaml:"datasource"`
-	Redis  Redis  `yaml:"redis"`
 }
 
 type Server struct {
@@ -28,13 +27,6 @@ type Db struct {
 	MaxIdle     int    `yaml:"maxIdle"`
 	MaxOpen     int    `yaml:"maxOpen"`
 	MaxLifetime string `yaml:"maxLifetime"`
-}
-
-type Redis struct {
-	Host     string `yaml:"host"`
-	Port     int    `yaml:"port"`
-	Password string `yaml:"password"`
-	Db       int    `yaml:"db"`
 }
 
 func InitConfig() {

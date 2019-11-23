@@ -19,16 +19,10 @@ func InitRouter() *gin.Engine {
 	//r.Use(gin.Recovery())
 	r.Use(Cors())
 	r.GET("/ping", api.Ping)
-	student := r.Group("/student")
-	{
-		student.POST("/save", api.Insert)
-		student.POST("/delete", api.Delete)
-		student.POST("/update", api.Update)
-		student.GET("/page", api.SelectPage)
-	}
 	biz := r.Group("/biz")
 	{
 		biz.GET("/test", api.Test)
+		biz.GET("/test2", api.Test2)
 		biz.POST("/user", api.SaveUser)
 	}
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {

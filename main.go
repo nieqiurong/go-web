@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"go-web/cache"
 	"go-web/entity"
 	"go-web/routers"
 	"go-web/setting"
@@ -14,8 +13,6 @@ import (
 func init() {
 	setting.InitConfig()
 	entity.InitDb()
-	//schedule.InitSchedule()
-	cache.InitRedis()
 }
 
 func main() {
