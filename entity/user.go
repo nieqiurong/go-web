@@ -26,13 +26,14 @@ func SaveUser(CmbUid string, WxName string) (err error) {
 	var user = User{}
 	session := db.NewSession()
 	defer session.Close()
-	b, err := session.Where("cmb_uid = ?", CmbUid).Get(&user)
+	//b, err := session.Where("cmb_uid = ?", CmbUid).Get(&user)
+	bytes, err := session.Query("select * from biz_user where cmb_uid = ?", CmbUid)
 	if err != nil {
 		log.Println("select user fail ", err)
 		return err
 	}
-	if b {
-		user = User{Id: user.Id, LoginTime: time.Now()}
+	if bytes != nil {
+		// 更新的不用管,不参与对比
 		_, err = session.Update(User{Id: user.Id, LoginTime: time.Now()})
 		if err != nil {
 			log.Println("update user fail ", err)
@@ -40,8 +41,9 @@ func SaveUser(CmbUid string, WxName string) (err error) {
 		}
 		return nil
 	} else {
-		user := User{CmbUid: CmbUid, WxName: WxName, LoginTime: time.Now(), CreatedTime: time.Now()}
-		_, e := session.Insert(&user)
+		//user := User{CmbUid: CmbUid, WxName: WxName, LoginTime: time.Now(), CreatedTime: time.Now()}
+		//_, e := session.Insert(&user)
+		_, e := session.Exec("insert into biz_user(cmb_uid,wx_name,login_time,created_time) VALUE(?,?,now(),now())", CmbUid, WxName)
 		if e != nil {
 			log.Println("save user fail ", e)
 			return e

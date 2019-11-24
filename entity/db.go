@@ -28,6 +28,7 @@ func InitDb() {
 	if err != nil {
 		log.Fatal("parseDuration fail !", err)
 	}
+	//db.ShowSQL(true)
 	db.DB().SetConnMaxLifetime(duration)
 	db.DB().SetMaxIdleConns(dbConfig.MaxIdle)
 	db.DB().SetMaxOpenConns(dbConfig.MaxOpen)
