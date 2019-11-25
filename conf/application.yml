@@ -7,6 +7,6 @@ datasource:
   dbName: test
   host: 127.0.0.1
   port: 3306
-  maxIdle: 5
-  maxOpen: 20
+  maxIdle: 10
+  maxOpen: 50
   maxLifetime: 5m
