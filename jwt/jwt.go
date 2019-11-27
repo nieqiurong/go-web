@@ -8,7 +8,7 @@ import (
 
 func CreateToken(id int64, account string, cl map[string]interface{}) (token string, err error) {
 	jwtConfig := setting.Application.Jwt
-	t := jwt.New(jwt.SigningMethodHS256)
+	t := jwt.New(jwt.GetSigningMethod(jwtConfig.Alg))
 	claims := t.Claims.(jwt.MapClaims)
 	claims["account"] = account
 	claims["id"] = id

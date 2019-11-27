@@ -54,6 +54,7 @@ type Redis struct {
 type Jwt struct {
 	Key  string        `yaml:"key"`
 	Time time.Duration `yaml:"time"`
+	Alg  string        `yaml:"alg"`
 }
 
 func InitConfig() {

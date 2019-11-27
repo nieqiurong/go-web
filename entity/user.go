@@ -5,14 +5,14 @@ import (
 )
 
 type User struct {
-	Id         int64     `xorm:"pk autoincr"`
-	Account    string    `xorm:"varchar(20) not null unique(un_index_account) account"`
-	PassWord   string    `xorm:"varchar(50) not null password"`
-	Name       string    `xorm:"varchar(50) name"`
-	QQ         string    `xorm:"varchar(50) qq"`
-	Email      string    `xorm:"varchar(50) email"`
-	LoginTime  time.Time `xorm:"datetime login_time default CURRENT_TIMESTAMP"`
-	CreateTime time.Time `xorm:"datetime create_time default CURRENT_TIMESTAMP"`
+	Id         int64     `xorm:"pk autoincr" json:"id"`
+	Account    string    `xorm:"varchar(20) not null unique(un_index_account) account" json:"account"`
+	PassWord   string    `xorm:"varchar(50) not null password" json:"pass_word"`
+	Name       string    `xorm:"varchar(50) name" json:"name"`
+	QQ         string    `xorm:"varchar(50) qq" json:"qq"`
+	Email      string    `xorm:"varchar(50) email" json:"email"`
+	LoginTime  time.Time `xorm:"datetime login_time default CURRENT_TIMESTAMP" json:"login_time"`
+	CreateTime time.Time `xorm:"datetime create_time default CURRENT_TIMESTAMP" json:"create_time"`
 }
 
 func (User) TableName() string {

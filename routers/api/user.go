@@ -33,9 +33,9 @@ func Login(ctx *gin.Context) {
 		return
 	}
 	//这里假装密码验证对了
-	cla := make(map[string]interface{})
-	cla["test"] = "测试用户"
-	token, err := jwt.CreateToken(user.Id, user.Account, cla)
+	token, err := jwt.CreateToken(user.Id, user.Account, map[string]interface{}{
+		"test": "测试用户",
+	})
 	if err != nil {
 		log.Printf("生成用户%stoken失败,错误原因:%s", user.Account, err)
 		ctx.JSON(http.StatusOK, model.Response(http.StatusBadRequest, err.Error()))
