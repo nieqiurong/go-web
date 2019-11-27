@@ -12,15 +12,14 @@ import (
 )
 
 func InitRouter() *gin.Engine {
-	r := gin.New()
-	r.Use(gin.Recovery())
-	r.Use(Cors())
 	if setting.Application.IsDebug() {
-		r.Use(gin.Logger())
 		gin.SetMode(gin.DebugMode)
 	} else {
 		gin.SetMode(gin.ReleaseMode)
 	}
+	r := gin.New()
+	r.Use(gin.Recovery())
+	r.Use(Cors())
 	r.GET("/ping", api.Ping)
 	r.GET("/info", api.Info)
 	student := r.Group("/student").Use(Jwt())
